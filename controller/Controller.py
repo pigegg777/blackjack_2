@@ -1,6 +1,8 @@
 from model.Dealer import Dealer
+from model.GameState import GameState
 from model.Player import Player
 from model.Players import Players
+from model.Profit import Profit
 from view import OutputView, InputView
 
 
@@ -18,7 +20,8 @@ def enter_game():
 def bet_money(players: Players):
     for player in players.players:
         OutputView.show_question_players_betting_money(player)
-        InputView.read_players_bet()
+        player.betting_money = InputView.read_players_bet()
+        print(player.betting_money.betting_money)
 
 
 def first_deal_card(players: Players, dealer: Dealer):
@@ -31,7 +34,7 @@ def first_deal_card(players: Players, dealer: Dealer):
 
 def player_deal_extra_card(player: Player):
     try:
-        while player.state is True:
+        while player.state is GameState.DRAW:
             OutputView.show_question_deal_extra_card(player)
             OutputView.show_player_dealt_cards(player)
             answer = InputView.read_answer_extra_card_question()
@@ -43,19 +46,19 @@ def player_deal_extra_card(player: Player):
 def players_deal_extra_card(players: Players):
     for player in players.players:
         player_deal_extra_card(player)
+        print(player.betting_money.betting_money)
 
 
 def dealer_deal_extra_card(dealer: Dealer):
-    while dealer.state is True:
+    while dealer.state is GameState.DRAW:
         dealer.draw_extra_cards()
         OutputView.show_dealer_get_extra_card()
 
 
-def get_game_result(dealer: Dealer, players: Players):
-    dealer_card_sum = dealer.dealer_card_list.sum_card_num()
-    OutputView.show_dealt_cards(players, dealer)
-    dealer_result = players.get_result(dealer_card_sum)
-    OutputView.show_game_result(players, dealer_result, dealer_card_sum)
+def get_game_result(players: Players, dealer: Dealer):
+    for player in players.players:
+        profit = Profit(dealer, player).get_profit()
+        OutputView.show_game_result(player, profit)
 
 
 def start():
@@ -65,6 +68,7 @@ def start():
         first_deal_card(players, dealer)
         players_deal_extra_card(players)
         dealer_deal_extra_card(dealer)
-        OutputView.show_dealt_cards(players,dealer)
+        OutputView.show_dealt_cards_with_card_sum(players, dealer)
+        get_game_result(players, dealer)
     except ValueError as e:
         OutputView.show_value_error(e)

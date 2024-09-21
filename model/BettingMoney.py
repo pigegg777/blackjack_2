@@ -1,6 +1,3 @@
 class BettingMoney:
-    def __init__(self, betting_money):
+    def __init__(self, betting_money: int):
         self.betting_money = betting_money
-        if self.betting_money is not int:
-            raise ValueError
-

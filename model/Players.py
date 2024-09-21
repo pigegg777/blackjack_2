@@ -1,6 +1,4 @@
-from model.Dealer import Dealer
 from model.Player import Player
-from model.UsedCards import UsedCards
 
 VALUE_ERROR_MESSAGE = "info를 똑바로 보세요"
 DEALER = '딜러'

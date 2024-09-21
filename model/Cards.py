@@ -6,4 +6,3 @@ card_patterns = ['Spade', 'Heart', 'Clover', "Dia"]
 
 class Cards(Enum):
     cards = [(pattern, number) for number in card_numbers for pattern in card_patterns]
-

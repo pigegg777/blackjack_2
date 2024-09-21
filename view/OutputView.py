@@ -11,7 +11,7 @@ EXTRA_CARD_QUESTION = "{0}는 한장의 카드를 더 받겠습니까?(예는 y,
 DEAL_FIRST_CARD = "{}에게 2장이 나누었습니다"
 DEALER_EXTRA_CARD_INFO = "딜러는 16이하라 한장의 카드를 더 받았습니다."
 DEALT_CARD = "{name}카드:{card_list}"
-FINAL_RESULT = "## 최종 승패 \n 딜러:{win}승,{draw}무,{defeat}패"
+FINAL_RESULT = "## 최종 결과 "
 NUM_EXCESS = "숫자가 21이 초과되었습니다"
 BETTING_MONEY = "{name}의 배팅금액은"
 
@@ -56,13 +56,11 @@ def show_players_dealt_card(players: Players):
         show_player_dealt_cards(player)
 
 
-def show_game_result(players: Players, dealer_results: list, dealer_card_sum: int):
-    print(FINAL_RESULT.format(win=dealer_results[0], draw=dealer_results[1], defeat=dealer_results[2]))
-    for player in players.players:
-        print(player.player, ":", player.determine_result(dealer_card_sum))
+def show_game_result(player: Player, profit: int):
+    print(player.player, ":", profit)
 
 
-def show_question_players_betting_money(player:Player):
+def show_question_players_betting_money(player: Player):
     print(BETTING_MONEY.format(name=player.player))
 
 
@@ -70,5 +68,8 @@ def show_value_error(e):
     print(e)
 
 
-def show_num_excess():
-    print(NUM_EXCESS)
+def show_dealt_cards_with_card_sum(players: Players, dealer: DEALER):
+    for player in players.players:
+        print(player.player, end=" ")
+        print(*player.card_list.card_list, player.card_list.sum_card_num())
+    print(dealer.dealer, *dealer.card_list.card_list, dealer.card_list.sum_card_num())

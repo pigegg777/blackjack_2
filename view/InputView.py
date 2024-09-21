@@ -1,7 +1,7 @@
+from model.BettingMoney import BettingMoney
 from model.ExtraCardAnswer import ExtraCardAnswer
 from model.Player import Player
 from model.Players import Players
-from model.BettingMoney import BettingMoney
 
 SEPARATOR = ","
 
@@ -18,5 +18,5 @@ def read_answer_extra_card_question():
 
 
 def read_players_bet():
-    betting_money = map(BettingMoney, input())
+    betting_money = BettingMoney(int(input()))
     return betting_money

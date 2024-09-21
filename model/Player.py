@@ -11,6 +11,7 @@ WIN_NUM = 21
 class Player(State):
     def __init__(self, player: str):
         self.player = player
+        self.betting_money = 0
         super().__init__()
         if len(self.player) < MINIMUM_NAME_LEN:
             raise ValueError(VALUE_ERROR_MESSAGE)
@@ -22,12 +23,3 @@ class Player(State):
         for _ in range(2):
             self.draw_card()
 
-
-    def determine_result(self, dealer_result: int) -> str:
-        if abs(WIN_NUM - self.player_card_list.sum_card_num()) < abs(WIN_NUM - dealer_result):
-            player_result = WIN
-        elif abs(WIN_NUM - self.player_card_list.sum_card_num()) > abs(WIN_NUM - dealer_result):
-            player_result = DEFEAT
-        elif abs(WIN_NUM - self.player_card_list.sum_card_num()) == abs(WIN_NUM - dealer_result):
-            player_result = DRAW
-        return player_result
