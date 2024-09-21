@@ -1,21 +1,21 @@
-from model.DealerCardList import DealerCardList
-from model.Participation import Participation
+from model.State import State
 
 
-
-class Dealer(Participation):
-    def __init__(self,dealer):
+class Dealer(State):
+    def __init__(self, dealer):
         self.dealer = dealer
-        self.dealer_card_list = DealerCardList([])
         super().__init__()
 
-    def player_deal_card(self):
-        dealt_card = super().player_deal_card()
-        self.dealer_card_list.dealer_card_list.append(dealt_card)
-        return self.dealer_card_list
+    def draw_card(self):
+        super().draw_card()
 
-    def dealer_deal_first_card(self):
+
+    def dealer_draw_first(self):
         for _ in range(2):
-            self.player_deal_card()
-        return self.dealer_card_list
+            self.draw_card()
 
+    def draw_extra_cards(self):
+        if self.card_list.sum_card_num() > 17:
+            self.state = False
+        elif self.card_list.sum_card_num() <= 16:
+            self.draw_card()

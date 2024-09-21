@@ -15,7 +15,6 @@ class Players:
         self.players = players
         if len(list(player.player for player in self.players)) != len(set(player.player for player in self.players)):
             raise ValueError(VALUE_ERROR_MESSAGE)
-        self.used_card = UsedCards([])
 
     def get_result(self, dealer_card_sum) -> list[int]:
         dealer_result = []
