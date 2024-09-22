@@ -25,14 +25,12 @@ class BustException(Exception):
 
 class State(metaclass=ABCMeta):
     def __init__(self):
-
         self.state = GameState.DRAW
         self.card_list = CardsList.CardList([])
-        self.bust_draw()
 
     @abstractmethod
     def draw_card(self):
-        if self.state is GameState.DRAW:
+        if self.state == GameState.DRAW:
             dealt_card = random.choice(Cards.cards.value)
             Cards.cards.value.remove(dealt_card)
             self.card_list.card_list.append(dealt_card)
@@ -42,16 +40,17 @@ class State(metaclass=ABCMeta):
     def first_draw(self):
         for _ in range(2):
             self.draw_card()
-            if self.card_list.sum_card_num() == 21:
-                self.state = GameState.BLACKJACK
+        if self.card_list.sum_card_num() == 21:
+            self.state = GameState.BLACKJACK
 
     def bust_draw(self):
         if self.card_list.sum_card_num() > 21:
             self.state = GameState.BUST
 
     def state_draw(self, extra_card_answer: ExtraCardAnswer):
-        if extra_card_answer.answer == "y":
-            self.state = GameState.DRAW
-            self.draw_card()
-        elif extra_card_answer.answer == "n":
-            self.state = GameState.STAY
+        if self.state != GameState.BLACKJACK:
+            if extra_card_answer.answer == "y":
+                self.state = GameState.DRAW
+                self.draw_card()
+            elif extra_card_answer.answer == "n":
+                self.state = GameState.STAY

@@ -18,5 +18,9 @@ def read_answer_extra_card_question():
 
 
 def read_players_bet():
-    betting_money = BettingMoney(int(input()))
-    return betting_money
+    try:
+        while True:
+            betting_money = BettingMoney(int(input()))
+            return betting_money
+    except:
+        raise ValueError()

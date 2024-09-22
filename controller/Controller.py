@@ -46,7 +46,6 @@ def player_deal_extra_card(player: Player):
 def players_deal_extra_card(players: Players):
     for player in players.players:
         player_deal_extra_card(player)
-        print(player.betting_money.betting_money)
 
 
 def dealer_deal_extra_card(dealer: Dealer):
@@ -56,9 +55,11 @@ def dealer_deal_extra_card(dealer: Dealer):
 
 
 def get_game_result(players: Players, dealer: Dealer):
+    OutputView.show_dealt_cards_with_card_sum(players, dealer)
     for player in players.players:
-        profit = Profit(dealer, player).get_profit()
+        profit = Profit(dealer, player).player_profit()
         OutputView.show_game_result(player, profit)
+    OutputView.show_dealer_result(dealer)
 
 
 def start():
@@ -68,7 +69,6 @@ def start():
         first_deal_card(players, dealer)
         players_deal_extra_card(players)
         dealer_deal_extra_card(dealer)
-        OutputView.show_dealt_cards_with_card_sum(players, dealer)
         get_game_result(players, dealer)
     except ValueError as e:
         OutputView.show_value_error(e)
