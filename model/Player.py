@@ -1,4 +1,6 @@
+from model.ExtraCardAnswer import ExtraCardAnswer
 from model.State import State
+from model.GameState import GameState
 
 WIN = "승"
 DEFEAT = '패'
@@ -20,6 +22,17 @@ class Player(State):
         super().draw_card()
 
     def first_draw(self):
-        for _ in range(2):
-            self.draw_card()
+        super().first_draw()
+
+    def state_draw(self, extra_card_answer: ExtraCardAnswer):
+        self.check_state()
+        if self.state != GameState.BLACKJACK or self.state != GameState.BUST:
+            if extra_card_answer.answer == "y":
+                self.state = GameState.DRAW
+                self.draw_card()
+            elif extra_card_answer.answer == "n":
+                self.state = GameState.STAY
+        self.check_state()
+
+
 

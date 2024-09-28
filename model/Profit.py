@@ -23,6 +23,7 @@ class Profit:
         elif self.dealer.state and self.player.state != GameState.BUST:
             return self.fight()
 
+
     def blackjack(self):
         if self.dealer.state == GameState.BLACKJACK:
             return 0
@@ -30,7 +31,9 @@ class Profit:
             return self.player.betting_money.betting_money * 1.5
 
     def fight(self):
-        if self.dealer.state and self.player.state != GameState.BUST:
+        if self.dealer.state== GameState.BLACKJACK:
+            return -self.player.betting_money.betting_money
+        elif self.dealer.state and self.player.state != GameState.BUST:
             if abs(21 - self.dealer.card_list.sum_card_num()) > abs(21 - self.player.card_list.sum_card_num()):
                 return self.player.betting_money.betting_money
             elif abs(21 - self.dealer.card_list.sum_card_num()) < abs(21 - self.player.card_list.sum_card_num()):

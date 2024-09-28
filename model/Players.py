@@ -14,12 +14,3 @@ class Players:
         if len(list(player.player for player in self.players)) != len(set(player.player for player in self.players)):
             raise ValueError(VALUE_ERROR_MESSAGE)
 
-    def get_result(self, dealer_card_sum) -> list[int]:
-        dealer_result = []
-        for player in self.players:
-            dealer_result.append(player.determine_result(dealer_card_sum))
-        win_count = dealer_result.count(DEFEAT)
-        draw_count = dealer_result.count(DRAW)
-        defeat_count = dealer_result.count(WIN)
-        dealer_results = [win_count, draw_count, defeat_count]
-        return dealer_results

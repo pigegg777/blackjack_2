@@ -32,10 +32,10 @@ def show_first_dealing_cards(players: Players):
 def show_dealt_cards(players: Players, dealer: DEALER):
     for player in players.players:
         print(DEALT_CARD.format(name=player.player,
-                                card=' '.join(' '.join(map(str, card)) for card in player.card_list.card_list),
+                                card=' '.join(''.join(map(str, card)) for card in player.card_list.card_list),
                                 end=" "))
     print(DEALT_CARD.format(name=dealer.dealer,
-                            card=' '.join(' '.join(map(str, card)) for card in dealer.card_list.card_list), end=" "))
+                            card=' '.join(''.join(map(str, card)) for card in dealer.card_list.card_list), end=" "))
 
 
 def show_question_deal_extra_card(player: Player):
@@ -44,8 +44,8 @@ def show_question_deal_extra_card(player: Player):
 
 def show_player_dealt_cards(player: Player):
     print(DEALT_CARD.format(name=player.player,
-                            card=' '.join(' '.join(map(str, card)) for card in player.card_list.card_list),
-                            end=" "))
+                            card=' '.join(''.join(map(str, card)) for card in player.card_list.card_list),
+                            end=""))
 
 
 def show_dealer_get_extra_card():
@@ -74,12 +74,12 @@ def show_value_error(e):
 
 
 def show_dealt_cards_with_card_sum(players: Players, dealer: DEALER):
+    print(FINAL_RESULT)
     for player in players.players:
         print(DEALT_CARD_WITH_CARD_SUM.format(name=player.player, card=' '.join(
-            ' '.join(map(str, card)) for card in player.card_list.card_list), card_sum=player.card_list.sum_card_num()))
-        print(player.state)
+            ''.join(map(str, card)) for card in player.card_list.card_list), card_sum=player.card_list.sum_card_num()))
     print(DEALT_CARD_WITH_CARD_SUM.format(name=dealer.dealer,
                                           card=' '.join(
-                                              ' '.join(map(str, card)) for card in dealer.card_list.card_list),
+                                              ''.join(map(str, card)) for card in dealer.card_list.card_list),
                                           card_sum=dealer.card_list.sum_card_num()))
     print(dealer.state)
