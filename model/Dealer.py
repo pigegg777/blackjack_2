@@ -17,7 +17,9 @@ class Dealer(State):
 
     def draw_extra_cards(self):
         self.check_state()
-        if self.card_list.sum_card_num() > 17 and self.state != GameState.BLACKJACK:
+        dealer_card_num = self.card_list.sum_card_num()
+        if dealer_card_num > 17 and self.state != GameState.BLACKJACK:
             self.state = GameState.STAY
         elif self.card_list.sum_card_num() <= 16 and self.state == GameState.DRAW:
             self.draw_card()
+        self.check_state()

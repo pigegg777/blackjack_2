@@ -19,7 +19,7 @@ def test_initial_state():
     assert player_state.card_list.sum_card_num() == 0  # 초기 카드의 합은 0
 
 
-def test_first_draw_card():
+def test_if_draw_card_enum_remove_card():
     player = TestPlayerState()
     player.first_draw()
     for card in player.card_list.card_list:
@@ -29,20 +29,20 @@ def test_first_draw_card():
 def test_first_draw():
     player_state = TestPlayerState()
     player_state.first_draw()
-    assert len(player_state.card_list.card_list) == 2  # 첫 번째 드로우에서 두 장의 카드를 받아야 함
+    assert len(player_state.card_list.card_list) == 2
 
 
 def test_bust_drawing():
     player_state = TestPlayerState()
-    player_state.card_list.card_list = (["Dia 10", "Dia K", "Dia 9"])  # 초기값 설정
+    player_state.card_list.card_list = (["Dia 10", "Dia K", "Dia 9"])
     player_state.check_state()
-    assert player_state.state == GameState.BUST  # Bust 상태가 되어야 함
+    assert player_state.state == GameState.BUST
 
 
 def test_draw_condition():
     player_state = TestPlayerState()
-    player_state.card_list.card_list = ["Dia 10", "Dia K"]  # A를 11로 처리할 때
-    assert player_state.state == GameState.DRAW  # 아직 bust 가 아니므로 상태가 DRAW여야 함
+    player_state.card_list.card_list = ["Dia 10", "Dia K"]
+    assert player_state.state == GameState.DRAW
 
 
 def test_check_blackjack():
@@ -50,3 +50,5 @@ def test_check_blackjack():
     player_state.card_list.card_list = ["Dia 10", "Dia Ace"]
     player_state.check_state()
     assert player_state.state == GameState.BLACKJACK
+
+

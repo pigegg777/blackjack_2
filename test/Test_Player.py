@@ -42,4 +42,4 @@ def test_state_draw_if_bust():
     extra_card_answer = ExtraCardAnswer("n")
     player.card_list.card_list = ["Dia Ace", "Dia 10", "Clover 10", "Spade 2"]
     player.state_draw(extra_card_answer)
-    assert player.state == GameState.BUST
+    assert player.state == GameState.BUST and len(player.card_list.card_list)==4

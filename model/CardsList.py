@@ -10,10 +10,18 @@ WIN_NUM = 21
 NUM_LIST = ['2', '3', '4', '5', '6', '7', '8', '9', '10']
 REGARD_AS_TEN_CARDS_LIST = ["K", "Q", "J"]
 
+from model.Cards import Cards
+
 
 class CardList:
     def __init__(self, card_list: list):
         self.card_list = card_list
+        if len(card_list)>1:
+            if len(self.card_list) != len(set(self.card_list)):
+                raise ValueError
+        for card in self.card_list:
+            if card in Cards.cards.value:
+                raise ValueError
 
     def sum_card_num(self) -> int:
         card_sum = DEFAULT_CARD_SUM
